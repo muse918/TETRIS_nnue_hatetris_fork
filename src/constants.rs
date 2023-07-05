@@ -4,7 +4,7 @@ use crate::types::{RowT, WaveT};
 
 // The RowT and WaveT types from types.rs MUST match the well width w:
 //		RowT: Needs w + 1 bits.
-//		WaveT: Needs 4*(w + 2*3 - 4) = 4*w + 8 bits. 
+//		WaveT: Needs 4*(w + 2*3 - 4) = 4*w + 8 bits.
 // For instance, a well of standard width 10 would need:
 //		RowT: 10 + 1 bits -> u16
 //		WaveT: 4*10 + 4 = 44 -> u64.
@@ -13,9 +13,9 @@ pub const WELL_HEIGHT: usize = 20;
 pub const WELL_LINE: usize = 4;
 
 pub const WIDTH: usize = 10;
-pub const WAVE_SIZE: usize = 4*WIDTH + 4;
+pub const WAVE_SIZE: usize = 4 * WIDTH + 4;
 
-pub const MAX_ROW: RowT = (2 as RowT).pow(WIDTH as u32)-1;
+pub const MAX_ROW: RowT = (2 as RowT).pow(WIDTH as u32) - 1;
 pub const EFF_HEIGHT: usize = WELL_HEIGHT - WELL_LINE;
 
 // ROTATE_LEFT:   0b000100010001...
@@ -28,23 +28,22 @@ pub const WAVE_OFFSET: WaveT = 1 + 16 * ((16 as WaveT).pow((WIDTH) as u32) - 1) 
 pub const ROTATE_LEFT: WaveT = WAVE_OFFSET * 1;
 pub const ROTATE_RIGHT: WaveT = WAVE_OFFSET * 14;
 
-
 // NEURAL NET PARAMETERS
 
 pub const HIDDEN: usize = 48;
-pub const CONVOLUTIONS: [(usize, usize); 2] = [(1,10), (4,3)]; // The order of arguments matters!
+pub const CONVOLUTIONS: [(usize, usize); 2] = [(1, 10), (4, 3)]; // The order of arguments matters!
 
 // I don't like hardcoding the count, but I don't see a way around it.
 pub const CONV_POW: [usize; 2] = [
-	2_usize.pow((CONVOLUTIONS[0].0 * CONVOLUTIONS[0].1) as u32),
-	2_usize.pow((CONVOLUTIONS[1].0 * CONVOLUTIONS[1].1) as u32)
-	];
-pub const CONV_COUNT: usize = 
-	(EFF_HEIGHT - CONVOLUTIONS[0].0 + 1) * (WIDTH - CONVOLUTIONS[0].1 + 1) + 
-	(EFF_HEIGHT - CONVOLUTIONS[1].0 + 1) * (WIDTH - CONVOLUTIONS[1].1 + 1);
-pub const ALL_CONV: usize = 
-	CONV_POW[0] * (EFF_HEIGHT - CONVOLUTIONS[0].0 + 1) * (WIDTH - CONVOLUTIONS[0].1 + 1) + 
-	CONV_POW[1] * (EFF_HEIGHT - CONVOLUTIONS[1].0 + 1) * (WIDTH - CONVOLUTIONS[1].1 + 1);
+    2_usize.pow((CONVOLUTIONS[0].0 * CONVOLUTIONS[0].1) as u32),
+    2_usize.pow((CONVOLUTIONS[1].0 * CONVOLUTIONS[1].1) as u32),
+];
+pub const CONV_COUNT: usize = (EFF_HEIGHT - CONVOLUTIONS[0].0 + 1)
+    * (WIDTH - CONVOLUTIONS[0].1 + 1)
+    + (EFF_HEIGHT - CONVOLUTIONS[1].0 + 1) * (WIDTH - CONVOLUTIONS[1].1 + 1);
+pub const ALL_CONV: usize =
+    CONV_POW[0] * (EFF_HEIGHT - CONVOLUTIONS[0].0 + 1) * (WIDTH - CONVOLUTIONS[0].1 + 1)
+        + CONV_POW[1] * (EFF_HEIGHT - CONVOLUTIONS[1].0 + 1) * (WIDTH - CONVOLUTIONS[1].1 + 1);
 pub const WEIGHT_COUNT: usize = HIDDEN * ALL_CONV;
 
 pub const ALPHA: f64 = 0.0001;
@@ -59,7 +58,9 @@ pub const CHUNK: usize = 4;
 pub const MINIBATCH: usize = 4096;
 pub const MAX_EPOCHS: isize = 256;
 
-pub const MASTER_BEAM_WIDTH: usize = 1_000_000;
+// things are taking too long
+// pub const MASTER_BEAM_WIDTH: usize = 1_000_000;
+pub const MASTER_BEAM_WIDTH: usize = 100_000;
 pub const TRAINING_BEAM_WIDTH: usize = 400;
 pub const TRAINING_BEAM_DEPTH: usize = 10;
 
@@ -82,3 +83,7 @@ pub const NET_VERSION: u32 = 1;
 pub const THREAD_NUMBER: usize = 4;
 pub const THREAD_BATCH: usize = 1024;
 pub const MULTIPLIER: f64 = 1_000_000.0;
+
+// MAX PLAY's
+pub const MASTER_MAX_PLAY: usize = 500;
+pub const TRAINING_MAX_PLAY: usize = 100;
