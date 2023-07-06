@@ -151,7 +151,7 @@ pub fn beam_search_network(starting_state: &State, weight: &WeightT, conf: &Sear
         parent_index: usize::MAX, // This would cause a panic were it ever accessed.
     };
 
-    if conf.save {
+    if conf.save && !REPLAY {
         let mut file_name = conf.move_path(depth);
         if !Path::new(&file_name).exists() {
             wells.push(starting_state.clone());
@@ -441,7 +441,7 @@ pub fn beam_search_network(starting_state: &State, weight: &WeightT, conf: &Sear
 
     use std::io::Write;
 
-    if REPLAY {
+    if conf.print && REPLAY {
         let fname = "./replay.txt";
         let mut f = File::create(fname).unwrap();
         let keyframes = get_keyframes_from_parents(&parents);

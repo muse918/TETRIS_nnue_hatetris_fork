@@ -419,6 +419,7 @@ pub fn training_cycle() -> () {
 
     if REPLAY {
         if let Some(dir) = REPLAY_NET {
+            println!("{dir}");
             weight = load_file(dir, NET_VERSION).unwrap();
         }
     }
@@ -428,7 +429,7 @@ pub fn training_cycle() -> () {
 
     loop {
         let training_path = master_conf.training_path();
-        if Path::new(&training_path).exists() {
+        if Path::new(&training_path).exists() && !REPLAY {
             let mut epoch = 0;
             let mut epoch_file_name = master_conf.epoch_path(epoch);
             while Path::new(&epoch_file_name).exists() {

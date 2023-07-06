@@ -73,7 +73,14 @@ pub fn waveform_to_wells(wave: WaveT, height: usize, p: usize, state: &State) ->
 
             wells.push(State {
                 well: new_well,
-                score: old_score + (score * score) as ScoreT,
+                score: old_score + (match score {
+                    0 => 0,
+                    1 => 0,
+                    2 => 1,
+                    3 => 2,
+                    4 => 4,
+                    _ => 0,
+                }) as ScoreT,
             });
         };
         w >>= 1;
