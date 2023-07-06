@@ -5,7 +5,7 @@ use crate::constants::{
     MASTER_MAX_PLAY, MULTIPLIER, TRAINING_BEAM_DEPTH, TRAINING_BEAM_WIDTH, TRAINING_MAX_PLAY,
 };
 
-use std::cmp::Ordering;
+use std::{cmp::Ordering, fmt::Debug};
 //use std::{arch::x86_64::__m256d, simd::f64x4};
 
 use rand::thread_rng;
@@ -224,6 +224,25 @@ impl GetInsertQuery for StateD {
         query.push_str(&self.score.to_string());
         query.push_str(");");
         return query;
+    }
+}
+
+pub struct StatePP(pub StateH);
+
+impl Debug for StatePP {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        for x in self.0.well {
+            let mut row = format!("{:010b}\n", x)
+                .chars()
+                .map(|x| if x == '1' { "#" } else { " " })
+                .collect::<String>();
+            row.extend("\n".chars());
+            f.write_str(&row)?;
+        }
+        f.write_fmt(format_args!("Heuristic: {}\n", self.0.heuristic))?;
+        f.write_fmt(format_args!("Score: {}\n", self.0.score))?;
+
+        Ok(())
     }
 }
 

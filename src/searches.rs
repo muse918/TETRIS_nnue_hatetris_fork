@@ -1,9 +1,11 @@
-use crate::constants::{EFF_HEIGHT, MAX_ROW, MULTIPLIER, THREAD_BATCH, THREAD_NUMBER, VERSION};
+use crate::constants::{
+    EFF_HEIGHT, MAX_ROW, MULTIPLIER, REPLAY, THREAD_BATCH, THREAD_NUMBER, VERSION,
+};
 use crate::emulator::{network_heuristic, network_heuristic_individual, single_move};
-use crate::types::{SearchConf, State, StateH, StateP, WeightT};
+use crate::types::{SearchConf, State, StateH, StateP, StatePP, WeightT};
 
 use std::collections::{BTreeSet, HashSet};
-use std::fs;
+use std::fs::{self, File};
 use std::path::Path;
 use std::sync::{Arc, Mutex};
 use std::thread;
@@ -437,11 +439,17 @@ pub fn beam_search_network(starting_state: &State, weight: &WeightT, conf: &Sear
         }
     }
 
-    if conf.print && conf.parent {
+    use std::io::Write;
+
+    if REPLAY {
+        let fname = "./replay.txt";
+        let mut f = File::create(fname).unwrap();
         let keyframes = get_keyframes_from_parents(&parents);
-        for k in keyframes {
-            println!("{:?}", k);
+        for k in keyframes.into_iter().rev() {
+            writeln!(f, "{:?}", StatePP(k)).unwrap();
         }
+        // die here, no consequences
+        panic!("See replay");
     }
 
     // The scaling factor adjusts the goal heuristic by the depth of the beam, for a much smoother transition.

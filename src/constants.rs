@@ -88,3 +88,6 @@ pub const MULTIPLIER: f64 = 1_000_000.0;
 // MAX PLAY's -> turned out to be useless; don't use
 pub const MASTER_MAX_PLAY: usize = 500;
 pub const TRAINING_MAX_PLAY: usize = 100;
+
+// replay
+pub const REPLAY: bool = true;
