@@ -93,5 +93,4 @@ pub const TRAINING_MAX_PLAY: usize = 100;
 pub const REPLAY: bool = false;
 // directory for replay net. leave None for latest
 // example: Training/Aeon 1/Generation 0/Network 0.bin
-// pub const REPLAY_NET: Option<&str> = None;
-pub const REPLAY_NET: Option<&str> = Some("Training/Aeon 5/Generation 10/Network 10.bin");
+pub const REPLAY_NET: Option<&str> = Some("Training/Aeon 5/Generation {}/Network {}.bin");

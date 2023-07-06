@@ -6,6 +6,7 @@ use crate::database::extract_data_points;
 use crate::searches::beam_search_network;
 use crate::types::{RowT, SearchConf, State, WeightT, WellT};
 
+use std::env::args;
 // use std::arch::x86_64::{__m256d, _mm256_add_pd};
 // use std::simd::f64x4;
 use std::thread;
@@ -419,8 +420,11 @@ pub fn training_cycle() -> () {
 
     if REPLAY {
         if let Some(dir) = REPLAY_NET {
-            println!("{dir}");
-            weight = load_file(dir, NET_VERSION).unwrap();
+            let mut v = args();
+            v.next();
+            let gen = v.next().unwrap();
+            println!("{}", dir.replace("{}", &gen));
+            weight = load_file(&dir.replace("{}", &gen), NET_VERSION).unwrap();
         }
     }
 
