@@ -442,9 +442,11 @@ pub fn beam_search_network(starting_state: &State, weight: &WeightT, conf: &Sear
     use std::io::Write;
 
     if conf.print && REPLAY {
-        let fname = "./replay.txt";
+        let args = std::env::args();
+        let fname = "replay/replay_{}.txt".replace("{}", &args.skip(2).next().unwrap());
         let mut f = File::create(fname).unwrap();
         let keyframes = get_keyframes_from_parents(&parents);
+        writeln!(f, "{}", parents.last().unwrap().score).unwrap();
         for (i, k) in keyframes.into_iter().rev().enumerate() {
             writeln!(f, "{i}: \n{:?}", StatePP(k)).unwrap();
         }
