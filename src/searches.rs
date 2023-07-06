@@ -445,8 +445,8 @@ pub fn beam_search_network(starting_state: &State, weight: &WeightT, conf: &Sear
         let fname = "./replay.txt";
         let mut f = File::create(fname).unwrap();
         let keyframes = get_keyframes_from_parents(&parents);
-        for k in keyframes.into_iter().rev() {
-            writeln!(f, "{:?}", StatePP(k)).unwrap();
+        for (i, k) in keyframes.into_iter().rev().enumerate() {
+            writeln!(f, "{i}: \n{:?}", StatePP(k)).unwrap();
         }
         // die here, no consequences
         panic!("See replay");
