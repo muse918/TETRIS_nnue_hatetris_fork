@@ -56,15 +56,16 @@ pub const CHUNK: usize = 4;
 // TRAINING LOOP PARAMETERS
 
 pub const MINIBATCH: usize = 4096;
-pub const MAX_EPOCHS: isize = 256;
+pub const MAX_EPOCHS: isize = 32;
 
 // things are taking too long
 // pub const MASTER_BEAM_WIDTH: usize = 1_000_000;
-pub const MASTER_BEAM_WIDTH: usize = 100_000;
-pub const TRAINING_BEAM_WIDTH: usize = 400;
-pub const TRAINING_BEAM_DEPTH: usize = 10;
+pub const MASTER_BEAM_WIDTH: usize = 100;
+pub const MASTER_BEAM_DEPTH: usize = 100;
+pub const TRAINING_BEAM_WIDTH: usize = 10;
+pub const TRAINING_BEAM_DEPTH: usize = 5;
 
-pub const AEON: usize = 0;
+pub const AEON: usize = 4;
 
 // FILE NAMING AND VERSIONING
 
@@ -84,6 +85,6 @@ pub const THREAD_NUMBER: usize = 4;
 pub const THREAD_BATCH: usize = 1024;
 pub const MULTIPLIER: f64 = 1_000_000.0;
 
-// MAX PLAY's
+// MAX PLAY's -> turned out to be useless; don't use
 pub const MASTER_MAX_PLAY: usize = 500;
 pub const TRAINING_MAX_PLAY: usize = 100;

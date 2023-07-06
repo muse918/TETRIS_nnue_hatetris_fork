@@ -59,6 +59,7 @@ pub fn waveform_to_wells(wave: WaveT, height: usize, p: usize, state: &State) ->
             let mut new_well = [0; EFF_HEIGHT];
 
             let mut score = 0;
+            let mut highest = EFF_HEIGHT;
             for row in (0..EFF_HEIGHT).rev() {
                 let mut new_val = well[row];
                 if row <= height - 1 && row + 4 > height - 1 {
@@ -68,12 +69,17 @@ pub fn waveform_to_wells(wave: WaveT, height: usize, p: usize, state: &State) ->
                     score += 1;
                 } else {
                     new_well[row + score] = new_val;
+                    if new_val > 0 {
+                        highest = highest.min(row + score);
+                    }
                 }
             }
 
+            highest = (highest > 8) as usize;
+
             wells.push(State {
                 well: new_well,
-                score: old_score + score as ScoreT,
+                score: old_score + (score * score + highest) as ScoreT,
             });
         };
         w >>= 1;

@@ -1,8 +1,8 @@
 #![allow(unused_parens)]
 
 use crate::constants::{
-    AEON, ALL_CONV, CHECKPOINTS, EFF_HEIGHT, HIDDEN, MASTER_BEAM_WIDTH, MASTER_MAX_PLAY,
-    MULTIPLIER, TRAINING_BEAM_DEPTH, TRAINING_BEAM_WIDTH, TRAINING_MAX_PLAY,
+    AEON, ALL_CONV, CHECKPOINTS, EFF_HEIGHT, HIDDEN, MASTER_BEAM_DEPTH, MASTER_BEAM_WIDTH,
+    MASTER_MAX_PLAY, MULTIPLIER, TRAINING_BEAM_DEPTH, TRAINING_BEAM_WIDTH, TRAINING_MAX_PLAY,
 };
 
 use std::cmp::Ordering;
@@ -340,7 +340,7 @@ impl SearchConf {
     pub fn master(generation: usize) -> SearchConf {
         return SearchConf {
             beam_width: MASTER_BEAM_WIDTH,
-            beam_depth: usize::MAX,
+            beam_depth: MASTER_BEAM_DEPTH,
             generation: generation,
             max_play: MASTER_MAX_PLAY,
             quiescent: true,
