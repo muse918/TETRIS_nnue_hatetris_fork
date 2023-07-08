@@ -60,12 +60,12 @@ pub const MAX_EPOCHS: isize = 32;
 
 // things are taking too long
 // pub const MASTER_BEAM_WIDTH: usize = 1_000_000;
-pub const MASTER_BEAM_WIDTH: usize = 100;
+pub const MASTER_BEAM_WIDTH: usize = 10;
 pub const MASTER_BEAM_DEPTH: usize = 100;
-pub const TRAINING_BEAM_WIDTH: usize = 10;
+pub const TRAINING_BEAM_WIDTH: usize = 20;
 pub const TRAINING_BEAM_DEPTH: usize = 5;
 
-pub const AEON: usize = 5;
+pub const AEON: usize = 0;
 
 // FILE NAMING AND VERSIONING
 
@@ -93,4 +93,4 @@ pub const TRAINING_MAX_PLAY: usize = 100;
 pub const REPLAY: bool = true;
 // directory for replay net. leave None for latest
 // example: Training/Aeon 1/Generation 0/Network 0.bin
-pub const REPLAY_NET: Option<&str> = Some("Training/Aeon 5/Generation {}/Network {}.bin");
+pub const REPLAY_NET: Option<&str> = Some("Training/Aeon 0/Generation {}/Network {}.bin");
